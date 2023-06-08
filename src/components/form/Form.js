@@ -118,9 +118,9 @@ const Form = ({ createMascota, mascotaU, updateMascota, setMascotaU, types }) =>
           onChange={handleChange}
         />
         <br />
-        <div className="d-flex flex-rowjustify-content-center">
-          <input type="submit" value="Enviar" className='btn btn-primary form-control md-btn' />
-          <input type="reset" onClick={handleReset} value="Limpiar" className='btn btn-danger form-control md-btn' />
+        <div className="d-flex flex-row justify-content-center w-100"> 
+          <input type="submit" value="Enviar" className='btn btn-primary form-control btn-block ml-3' />
+          <input type="reset" onClick={handleReset} value="Limpiar" className='btn btn-danger form-control btn-block' />
         </div>
       </form>
     </div>

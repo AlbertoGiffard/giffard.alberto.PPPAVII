@@ -1,3 +1,7 @@
-.md-btn{
-    width: 50%;
+.btn-block{
+    width: 350px;
+}
+
+.ml-3{
+    margin-right: 15px;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
+import "./Row.css";
 
 const Row = ({ mascota: { id, nombre, edad, tipo, vacunado, observaciones }, setMascotaU, deleteMascota }) => {
   const vacunadoTxt = () => {
