@@ -1,0 +1,21 @@
+.row-no-movie {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td, tr {
+    border: 1px solid black;
+    padding: 5px 10px;
+}
+
+thead {
+    background-color: coral;
+}
+
+tr:hover{
+    background-color: #aaa;
+}
