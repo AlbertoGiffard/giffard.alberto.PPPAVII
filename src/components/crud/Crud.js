@@ -4,14 +4,19 @@ import Loader from "../loader/Loader";
 import Tabla from "../tabla/Tabla";
 import axios from 'axios';
 
-const URL = "http://localhost:3001/mascotas/";
-const URL_TIPOS = "http://localhost:3001/tipos/";
+const URL = "http://localhost:3001/api/mascota/";
+const URL_TOKEN = "http://localhost:3001/api/login/";
+const URL_TIPOS = "http://localhost:3001/api/mascota/tipos";
 
 const Crud = () => {
     const [mascotas, setMascotas] = useState([]);
     const [tipos, setTipos] = useState([]);
     const [mascotaU, setMascotaU] = useState(null);
     const [loading, setLoading] = useState(false);
+    const credentialUser = {
+        "username": "alberxo",
+        "password": "123456"
+    }
 
     useEffect(() => {
         setLoading(true);
@@ -25,19 +30,52 @@ const Crud = () => {
                     return [...types, ...tipos]
                 });
 
-                fetch(URL)
-                    .then((res) => {
-                        return res.ok ? res.json() : Promise.reject(res.status);
+                fetch(URL_TOKEN, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(credentialUser)
+                })
+                    .then(response => {
+                        return response.json(); // Retornar la promesa para que se pueda encadenar otro .then
                     })
-                    .then((mascotas) => {
-                        setMascotas((pets) => {
-                            return [...pets, ...mascotas]
+                    .then(data => {
+                        localStorage.setItem('token', data.token);
+                        fetch(URL, {
+                            headers: {
+                                'Authorization': `Bearer ${data.token}`
+                            }
                         })
+                            .then((res) => {
+                                return res.ok ? res.json() : Promise.reject(res.status);
+                            })
+                            .then((mascotas) => {
+                                setMascotas((pets) => {
+                                    return [...pets, ...mascotas]
+                                })
+                            })
+                            .finally(() => {
+                                setLoading(false);
+                            })
                     })
-                    .finally(() => {
-                        setLoading(false);
-                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+
+
             })
+
+        // Limpiar el localStorage al refrescar o cerrar la pestaña
+        const handleBeforeUnload = () => {
+            localStorage.removeItem('token');
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
     }, []);
 
     const createMascota = (newPet) => {
@@ -64,7 +102,6 @@ const Crud = () => {
                 setLoading(false);
             }
         }
-
         addMascota(URL, newPet);
     };
 
@@ -132,7 +169,7 @@ const Crud = () => {
                 loading ?
                     <Loader />
                     :
-                    <Tabla mascotas={mascotas} setMascotaU={setMascotaU} deleteMascota={deleteMascota}/>
+                    <Tabla mascotas={mascotas} setMascotaU={setMascotaU} deleteMascota={deleteMascota} />
             }
         </section>
     );

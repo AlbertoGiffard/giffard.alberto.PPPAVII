@@ -5,9 +5,9 @@ import "./Form.css";
 const initialForm = {
   id: null,
   nombre: "",
-  tipo: "",
+  tipo: "Perro",
   edad: "",
-  vacunado: "",
+  vacunado: false,
   observaciones: "",
 };
 
@@ -31,8 +31,17 @@ const Form = ({ createMascota, mascotaU, updateMascota, setMascotaU, types }) =>
   }, [types]);
 
   const handleChange = (e) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    setForm((form) => ({ ...form, [e.target.name]: value }));
+    const { name, value, type, checked } = e.target;
+
+    const inputValue = type === 'checkbox' ? checked : value;
+  
+    // Convertir el valor a booleano si es una cadena de texto 'true' o 'false'
+    const parsedValue = inputValue === 'true' ? true : inputValue === 'false' ? false : inputValue;
+  
+    setForm((form) => ({
+      ...form,
+      [name]: parsedValue
+    }));
   };
 
   const handleSelectionChange = (valor) => {

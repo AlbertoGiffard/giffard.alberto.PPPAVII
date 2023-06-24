@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom/cjs/react-router-dom';
 import Loader from "../loader/Loader";
+import "./Check.css";
 
 const Check = () => {
     const { id } = useParams();
@@ -9,7 +10,7 @@ const Check = () => {
     const { nombre, edad, tipo, vacunado, observaciones } = mascota;
 
     useEffect(() => {
-        const URL = `http://localhost:3001/mascotas/${id}`;
+        const URL = `http://localhost:3001/api/mascota/${id}`;
         setLoading(true);
 
         fetch(URL)
@@ -28,7 +29,7 @@ const Check = () => {
     const show = () => {
         return (
             <div className='d-flex justify-content-center align-items-center flex-column vh-100'>
-                <div className="card w-50 bg-primary mx-auto">
+                <div className="card w-50  mx-auto container-bg">
                     <div className="card-body">
                         <h5 className="card-title display-2">{nombre}</h5>
                         <h6 className="card-subtitle mb-2 text-body-secondary"><p className="fw-bold">Edad:</p> {edad}</h6>

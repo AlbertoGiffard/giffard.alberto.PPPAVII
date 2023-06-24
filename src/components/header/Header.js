@@ -5,7 +5,7 @@ class Header extends Component {
     render() {
         return (
             <div className='text-center'>
-                <span className='display-4 fw-bold'>
+                <span className='display-4 fw-bold' style={{ color: 'white' }}>
                     ¡Bienvenido!
                 </span>
                 <br />

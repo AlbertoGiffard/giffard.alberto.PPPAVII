@@ -1,5 +1,21 @@
+label{
+    font-weight: 600;
+    color: white;
+}
+ h2{
+    color: white;
+ }
+
 .btn-block{
     width: 350px;
+    border: 1px solid rgb(130, 255, 80);
+    font-size: 1.25rem;
+}
+
+.btn-block:hover{
+    background-color: rgb(116, 4, 118);
+    border: 2px solid black;
+    color: white;
 }
 
 .ml-3{

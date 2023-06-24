@@ -23,7 +23,7 @@ const Tabla = ({ mascotas, setMascotaU, deleteMascota }) => {
             ))
             :
             <tr className="row-no-movie">
-              <td colSpan="3">No hay mascotas</td>
+              <td colSpan="6">No hay mascotas</td>
             </tr>
         }
       </tbody>
